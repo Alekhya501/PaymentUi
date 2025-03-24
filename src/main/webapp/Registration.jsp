@@ -89,6 +89,10 @@ h2 {
 	<div class="container">
 		<h2>Registration</h2>
 		<form action="Registration" method="POST">
+		<div class="input-group">
+				<label for="userid">User id</label> <input type="text"
+					id="userid" name="userid" required>
+			</div>
 			<div class="input-group">
 				<label for="userName">User Name</label> <input type="text"
 					id="userName" name="userName" required>

@@ -78,7 +78,7 @@
 <body>
     <div class="container">
         <h2>Login</h2>
-        <form action="Login">
+        <form action="Login" method="post">
             <div class="input-group">
                 <label for="userName">User Name</label>
                 <input type="text" id="userName" name="userName" required>

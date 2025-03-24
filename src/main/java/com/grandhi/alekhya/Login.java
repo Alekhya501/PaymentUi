@@ -19,23 +19,30 @@ import java.sql.SQLException;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter pw=response.getWriter();
 		try {
 			Connection con=dbcon.getcon();
 			String uname=request.getParameter("userName");
 			String pass=request.getParameter("password");
-			String query="Select * from Registrations where username=? And password=?";
+			System.out.println("Username: " + uname);
+			System.out.println("Password: " + pass);
+			String query="Select * from user_details where user_name=? And password=?";
 			PreparedStatement ps=con.prepareStatement(query);
 			ps.setString(1,uname);
 			ps.setString(2,pass);
 			ResultSet rs=ps.executeQuery();
 			if(rs.next()) {
-				HttpSession hs=request.getSession();
-				hs.setAttribute("uname",rs.getString(1));
-				pw.print("login successfull");
-				RequestDispatcher rd=request.getRequestDispatcher("DashBoard.jsp");
-				rd.forward(request, response);
+			    HttpSession hs=request.getSession();
+			    hs.setAttribute("uname", rs.getString("user_name"));
+//			    hs.setAttribute("firstName", rs.getString("first_name"));
+//			    hs.setAttribute("lastName", rs.getString("last_name"));
+//			    hs.setAttribute("email", rs.getString("email"));
+//			    hs.setAttribute("phno", rs.getString("phone_number"));
+
+			    pw.print("login successful");
+			    RequestDispatcher rd=request.getRequestDispatcher("DashBoard.jsp");
+			    rd.forward(request, response);
 			}
 			else {
 				pw.print("login unsuccessfull");
